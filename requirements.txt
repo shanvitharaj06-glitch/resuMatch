@@ -1,0 +1,10 @@
+flask 
+pymongo 
+dnspython 
+bcrypt 
+werkzeug 
+pypdf2 
+python-docx 
+nltk 
+scikit-learn 
+gunicorn
