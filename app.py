@@ -3,7 +3,20 @@ import os
 from flask import Flask, render_template, request, redirect, session
 from database.mongodb import *
 import bcrypt
+from pymongo import MongoClient
+from dotenv import load_dotenv
 
+# 1. Load the hidden .env file (used when running locally on your computer)
+load_dotenv()
+
+# 2. Grab the MONGO_URI variable securely from the system environment
+MONGO_URI = os.environ.get("MONGO_URI")
+
+# 3. Connect to MongoDB Atlas with secure TLS/SSL settings enabled
+client = MongoClient(MONGO_URI, tls=True)
+
+# 4. Select your specific database name
+db = client.get_database("resuMatch_db") 
 app = Flask(__name__)
 
 # Secret key for sessions
