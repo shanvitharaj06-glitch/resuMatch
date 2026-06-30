@@ -5,7 +5,7 @@ from database.mongodb import *
 import bcrypt
 from pymongo import MongoClient
 from dotenv import load_dotenv
-
+app = Flask(__name__)
 # 1. Load the hidden .env file (used when running locally on your computer)
 load_dotenv()
 
@@ -17,7 +17,7 @@ client = MongoClient(MONGO_URI, tls=True)
 
 # 4. Select your specific database name
 db = client.get_database("resuMatch_db") 
-app = Flask(__name__)
+
 
 # Secret key for sessions
 app.secret_key = "resumatch_secret_key"
