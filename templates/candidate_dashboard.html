@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Candidate Dashboard</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
+        }
+
+        body{
+            display:flex;
+            background:#f4f7fc;
+        }
+
+        /* Sidebar */
+
+        .sidebar{
+            width:250px;
+            height:100vh;
+            background:#667eea;
+            color:white;
+            padding:30px;
+            position:fixed;
+        }
+
+        .sidebar h2{
+            margin-bottom:40px;
+            text-align:center;
+        }
+
+        .sidebar a{
+            display:block;
+            color:white;
+            text-decoration:none;
+            padding:15px;
+            margin-bottom:15px;
+            border-radius:10px;
+            transition:0.3s;
+        }
+
+        .sidebar a:hover{
+            background:white;
+            color:#667eea;
+        }
+
+        /* Main Content */
+
+        .main{
+            margin-left:250px;
+            width:100%;
+            padding:40px;
+        }
+
+        .header{
+            background:white;
+            padding:30px;
+            border-radius:20px;
+            box-shadow:0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom:30px;
+        }
+
+        .header h1{
+            color:#333;
+        }
+
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:25px;
+        }
+
+        .card{
+            background:white;
+            padding:30px;
+            border-radius:20px;
+            box-shadow:0 5px 20px rgba(0,0,0,0.1);
+            transition:0.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-5px);
+        }
+
+        .card h3{
+            color:#667eea;
+            margin-bottom:15px;
+        }
+
+        .card p{
+            color:#555;
+            margin-bottom:20px;
+        }
+
+        button{
+            padding:12px 20px;
+            border:none;
+            border-radius:10px;
+            background:#667eea;
+            color:white;
+            cursor:pointer;
+            font-size:15px;
+        }
+
+        button:hover{
+            background:#4f5bd5;
+        }
+
+        .progress{
+            width:100%;
+            background:#ddd;
+            height:20px;
+            border-radius:20px;
+        }
+
+        .progress-bar{
+            width:70%;
+            height:20px;
+            background:#00c853;
+            border-radius:20px;
+            text-align:center;
+            color:white;
+            font-size:12px;
+            line-height:20px;
+        }
+        .status{
+    padding:5px 10px;
+    border-radius:20px;
+    color:white;
+    font-size:12px;
+}
+
+.applied{ background:#ff9800; }
+.review{ background:#2196f3; }
+.shortlist{ background:#00c853; }
+.rejected{ background:#ff5252; }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+
+    <div class="sidebar">
+
+        <h2>ResuMatch ATS</h2>
+
+        <a href="/candidate">🏠 Dashboard</a>
+
+        <a href="/upload_resume">📄 Upload Resume</a>
+
+        <a href="/jobs" class="btn">💼 Browse Jobs</a>
+
+        <a href="/applied_jobs">💼 Applied Jobs</a>
+
+        <a href="/ats_score">⭐ ATS Match Score</a>
+
+        <a href="/profile">👤 Profile</a>
+
+        <a href="/logout">🚪 Logout</a>
+
+    </div>
+
+    <!-- Main Content -->
+
+    <div class="main">
+
+        <div class="header">
+
+            <h1>Welcome, {{ name }} 👋</h1>
+
+            <p>
+                Manage your profile, upload resumes,
+                and track your job applications.
+            </p>
+
+        </div>
+
+        <div class="cards">
+
+            <!-- Resume Upload -->
+
+            <div class="card">
+
+    <h3>📄 Resume Status</h3>
+
+    {% if resume %}
+        <p>Resume Uploaded ✅</p>
+    {% else %}
+        <p>No Resume Uploaded ❌</p>
+    {% endif %}
+
+    <a href="/upload_resume">
+        <button>Upload Resume</button>
+    </a>
+
+</div>
+
+            <!-- Profile Completion -->
+
+            <div class="card">
+
+                <h3>👤 Profile Completion</h3>
+
+                <p>Complete your profile to improve visibility.</p>
+
+                {% if profile %}
+
+<div class="progress">
+    <div class="progress-bar" style="width:100%;">
+        100%
+    </div>
+</div>
+
+{% else %}
+
+<div class="progress">
+    <div class="progress-bar" style="width:20%;">
+        20%
+    </div>
+</div>
+
+{% endif %}
+
+            </div>
+
+            <!-- Applied Jobs -->
+
+            <div class="card">
+
+                <h3>💼 Applied Jobs</h3>
+
+                <p>
+                    Total Applications Submitted
+                </p>
+
+                <h2>{{ applications }}</h2>
+
+            </div>
+
+            <!-- ATS Match Score -->
+
+            <div class="card">
+
+                <h3>⭐ ATS Match Score</h3>
+
+                <p>
+                    Your average resume match score.
+                </p>
+
+               <h2>{{ ats }}%</h2>
+
+            </div>
+
+        </div>
+
+        <br><br>
+
+        <!-- Recent Applications -->
+
+       <div class="card">
+
+    <h3>📋 Recent Applications</h3>
+
+    <br>
+
+    <table width="100%">
+
+        <tr>
+            <th>Company</th>
+            <th>Position</th>
+            <th>Status</th>
+        </tr>
+
+        {% for app in recent_apps %}
+
+        <tr>
+            <td>{{ app.company }}</td>
+            <td>{{ app.position }}</td>
+
+            <td>
+                {% if app.status == "Applied" %}
+                    <span class="status applied">Applied</span>
+                {% elif app.status == "Shortlisted" %}
+                    <span class="status shortlist">Shortlisted</span>
+                {% elif app.status == "Rejected" %}
+                    <span class="status rejected">Rejected</span>
+                {% else %}
+                    <span class="status review">{{ app.status }}</span>
+                {% endif %}
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+    </div>
+
+</body>
+</html>

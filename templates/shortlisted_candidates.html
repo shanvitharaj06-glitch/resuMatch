@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shortlisted Candidates | ResuMatch</title>
+
+<style>
+body{
+    font-family:Segoe UI;
+    background:#f4f7fc;
+}
+
+.header{
+    text-align:center;
+    padding:20px;
+    color:#00c853;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+    padding:30px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.name{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.email{
+    color:gray;
+}
+
+.status{
+    background:#00c853;
+    color:white;
+    padding:5px 10px;
+    border-radius:20px;
+    display:inline-block;
+    margin-top:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+    <h1>⭐ Shortlisted Candidates</h1>
+</div>
+
+<div class="grid">
+
+{% for c in candidates %}
+
+<div class="card">
+
+    <div class="name">{{ c.name or c.email }}</div>
+    <div class="email">{{ c.email }}</div>
+
+    <div>
+        Position: {{ c.position }}
+    </div>
+
+    <div class="status">
+        ⭐ Shortlisted
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</body>
+</html>

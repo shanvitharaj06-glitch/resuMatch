@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Profile | ResuMatch ATS</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
+        }
+
+        body{
+            background:#f4f7fc;
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:40px;
+        }
+
+        .container{
+            width:850px;
+            background:white;
+            border-radius:25px;
+            padding:40px;
+            box-shadow:0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header{
+            text-align:center;
+            margin-bottom:35px;
+        }
+
+        .header h1{
+            color:#667eea;
+            margin-bottom:10px;
+        }
+
+        .header p{
+            color:#666;
+        }
+
+        .profile-pic{
+            text-align:center;
+            margin-bottom:30px;
+        }
+
+        .profile-pic img{
+            width:140px;
+            height:140px;
+            border-radius:50%;
+            border:5px solid #667eea;
+            object-fit:cover;
+        }
+
+        .profile-pic input{
+            margin-top:15px;
+        }
+
+        .row{
+            display:flex;
+            gap:20px;
+            margin-bottom:20px;
+        }
+
+        .field{
+            flex:1;
+        }
+
+        .field label{
+            display:block;
+            margin-bottom:8px;
+            color:#444;
+            font-weight:bold;
+        }
+
+        .field input,
+        .field textarea{
+            width:100%;
+            padding:15px;
+            border:1px solid #ddd;
+            border-radius:12px;
+            font-size:15px;
+            outline:none;
+            transition:0.3s;
+        }
+
+        .field input:focus,
+        .field textarea:focus{
+            border-color:#667eea;
+            box-shadow:0 0 10px rgba(102,126,234,0.3);
+        }
+
+        textarea{
+            resize:none;
+            height:100px;
+        }
+
+        .buttons{
+            display:flex;
+            justify-content:center;
+            gap:20px;
+            margin-top:30px;
+        }
+
+        .btn{
+            padding:15px 35px;
+            border:none;
+            border-radius:12px;
+            font-size:16px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .save{
+            background:#667eea;
+            color:white;
+        }
+
+        .save:hover{
+            background:#5563d8;
+            transform:translateY(-3px);
+        }
+
+        .dashboard{
+            background:#00c853;
+            color:white;
+            text-decoration:none;
+            display:flex;
+            align-items:center;
+            padding:15px 35px;
+            border-radius:12px;
+        }
+
+        .dashboard:hover{
+            background:#00b248;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>👤 My Profile</h1>
+        <p>Complete your profile to improve your ATS score and recruiter visibility.</p>
+    </div>
+
+    <form action="/save_profile"
+          method="POST"
+          enctype="multipart/form-data">
+
+        <div class="profile-pic">
+
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+
+            <br>
+
+            <input type="file"
+                   name="photo">
+
+        </div>
+
+        <div class="row">
+
+            <div class="field">
+
+                <label>Full Name</label>
+
+                <input type="text"
+                       value="{{ session.name }}"
+                       readonly>
+
+            </div>
+
+            <div class="field">
+
+                <label>Email</label>
+
+                <input type="email"
+                       value="{{ session.email }}"
+                       readonly>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="field">
+
+                <label>Phone Number</label>
+
+                <input type="text"
+                       name="phone"
+                       value="{{ profile.phone if profile else '' }}"
+                       placeholder="Enter Phone Number">
+
+            </div>
+
+            <div class="field">
+
+                <label>Qualification</label>
+
+                <input type="text"
+                       name="qualification"
+                       value="{{ profile.qualification if profile else '' }}"
+                       placeholder="B.Tech, MCA, MBA etc.">
+
+            </div>
+
+        </div>
+
+        <div class="field">
+
+            <label>Skills</label>
+
+            <textarea
+                name="skills"
+                placeholder="Python, Flask, MongoDB, Java, Machine Learning">{{ profile.skills if profile else '' }}</textarea>
+
+        </div>
+
+        <br>
+
+        <div class="row">
+
+            <div class="field">
+
+                <label>LinkedIn Profile</label>
+
+                <input type="text"
+                       name="linkedin"
+                       value="{{ profile.linkedin if profile else '' }}"
+                       placeholder="https://linkedin.com/in/yourprofile">
+
+            </div>
+
+            <div class="field">
+
+                <label>GitHub Profile</label>
+
+                <input type="text"
+                       name="github"
+                       value="{{ profile.github if profile else '' }}"
+                       placeholder="https://github.com/yourprofile">
+
+            </div>
+
+        </div>
+
+        <div class="buttons">
+
+            <button class="btn save"
+                    type="submit">
+                💾 Save Profile
+            </button>
+
+            <a href="/candidate"
+               class="dashboard">
+                🏠 Dashboard
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

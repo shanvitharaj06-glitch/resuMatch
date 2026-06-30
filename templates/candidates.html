@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Candidates | ResuMatch</title>
+
+<style>
+
+body{
+    font-family:Segoe UI;
+    background:#f4f7fc;
+}
+
+.header{
+    text-align:center;
+    padding:20px;
+    color:#667eea;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+    padding:30px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.name{
+    font-size:20px;
+    font-weight:bold;
+    color:#333;
+}
+
+.email{
+    color:gray;
+    margin-bottom:10px;
+}
+
+.ats{
+    background:#667eea;
+    color:white;
+    padding:5px 10px;
+    border-radius:20px;
+    display:inline-block;
+    margin-top:10px;
+}
+
+.btn{
+    margin-top:15px;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.view{
+    background:#00c853;
+    color:white;
+}
+
+.reject{
+    background:#ff5252;
+    color:white;
+}
+
+.shortlist{
+    background:#ff9800;
+    color:white;
+}
+.btn-group{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:10px 12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-block;
+    text-align:center;
+    font-size:14px;
+}
+
+.view{ background:#00c853; color:white; }
+.reject{ background:#ff5252; color:white; }
+.shortlist{ background:#ff9800; color:white; }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+<h1>🧑‍💻 All Candidates</h1>
+</div>
+
+<div class="grid">
+
+{% for c in candidates %}
+
+<div class="card">
+
+    <div class="name">{{ c.name or c.email }}</div>
+    <div class="email">{{ c.email }}</div>
+
+    <div class="ats">
+        ⭐ ATS: {{ c.ats or 0 }}%
+    </div>
+
+    <!-- STATUS FIXED INSIDE CARD -->
+    <div style="margin-top:10px;">
+        <strong>Status:</strong> {{ c.status or "Applied" }}
+    </div>
+
+    <!-- BUTTON GROUP FIX -->
+    <div class="btn-group">
+
+        <a href="/view_resume/{{ c._id }}" class="btn view">
+            View Resume
+        </a>
+
+        <a href="/shortlist/{{ c._id }}" class="btn shortlist"
+           onclick="return confirm('Shortlist this candidate?')">
+            Shortlist
+        </a>
+
+        <a href="/reject/{{ c._id }}" class="btn reject"
+           onclick="return confirm('Reject this candidate?')">
+            Reject
+        </a>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</body>
+</html>

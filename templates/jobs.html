@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Jobs | ResuMatch ATS</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
+        }
+
+        body{
+            background:#f4f7fc;
+            padding:40px;
+        }
+
+        .header{
+            text-align:center;
+            margin-bottom:40px;
+        }
+
+        .header h1{
+            color:#667eea;
+            margin-bottom:10px;
+        }
+
+        .section-title{
+            margin:30px 0 15px;
+            color:#333;
+        }
+
+        .jobs-container{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+            gap:30px;
+        }
+
+        .job-card{
+            background:white;
+            padding:30px;
+            border-radius:20px;
+            box-shadow:0 8px 20px rgba(0,0,0,0.1);
+            transition:0.3s;
+        }
+
+        .job-card:hover{
+            transform:translateY(-8px);
+        }
+
+        .company{
+            font-size:26px;
+            color:#667eea;
+            margin-bottom:10px;
+        }
+
+        .position{
+            font-size:20px;
+            color:#333;
+            margin-bottom:10px;
+        }
+
+        .details{
+            color:#666;
+            margin-bottom:10px;
+        }
+
+        .skills{
+            background:#eef1ff;
+            color:#667eea;
+            padding:10px;
+            border-radius:10px;
+            margin-bottom:15px;
+        }
+
+        .match{
+            display:inline-block;
+            padding:5px 10px;
+            border-radius:20px;
+            background:#00c853;
+            color:white;
+            font-size:12px;
+            margin-bottom:10px;
+        }
+
+        .btn{
+            background:#667eea;
+            color:white;
+            border:none;
+            padding:12px 25px;
+            border-radius:12px;
+            cursor:pointer;
+            font-size:16px;
+            text-decoration:none;
+            display:inline-block;
+        }
+
+        .btn:hover{
+            background:#5563d8;
+        }
+
+        .recommended{
+            border:2px solid #00c853;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>💼 Available Jobs</h1>
+    <p>Smart recommendations based on your skills</p>
+</div>
+
+<!-- 🔥 RECOMMENDED JOBS -->
+{% if recommended %}
+<h2 class="section-title">🔥 Recommended Jobs</h2>
+
+<div class="jobs-container">
+
+{% for job in recommended %}
+<div class="job-card recommended">
+
+    <div class="company">{{ job.company }}</div>
+
+    <div class="position">
+        {{ job.title or job.position }}
+    </div>
+
+    {% if job.match_score is defined %}
+    <div class="match">
+        ⭐ Match Score: {{ job.match_score }}
+    </div>
+    {% endif %}
+
+    <div class="details">📍 {{ job.location }}</div>
+
+    <div class="skills">
+        🛠 Skills: {{ job.skills }}
+    </div>
+
+    <p class="details">
+        {{ job.description }}
+    </p>
+
+    <a href="/apply/{{ job._id }}" class="btn">
+        Apply Now
+    </a>
+
+</div>
+{% endfor %}
+
+</div>
+{% endif %}
+
+
+<!-- 💼 ALL JOBS -->
+<h2 class="section-title">💼 All Jobs</h2>
+
+<div class="jobs-container">
+
+{% for job in jobs %}
+<div class="job-card">
+
+    <div class="company">{{ job.company }}</div>
+
+    <div class="position">
+        {{ job.title or job.position }}
+    </div>
+
+    <div class="details">📍 {{ job.location }}</div>
+
+    <div class="skills">
+        🛠 Skills: {{ job.skills }}
+    </div>
+
+    <p class="details">
+        {{ job.description }}
+    </p>
+
+    {% if job.applied %}
+<button class="btn" disabled>Already Applied</button>
+{% else %}
+<a href="/apply/{{ job._id }}" class="btn">Apply Now</a>
+{% endif %}
+
+</div>
+{% endfor %}
+
+</div>
+
+</body>
+</html>

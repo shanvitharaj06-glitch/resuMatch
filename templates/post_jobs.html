@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Job | ResuMatch ATS</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
+        }
+
+        body{
+            display:flex;
+            background:#f4f7fc;
+        }
+
+        .sidebar{
+            width:250px;
+            height:100vh;
+            background:#667eea;
+            color:white;
+            padding:30px;
+            position:fixed;
+        }
+
+        .sidebar h2{
+            text-align:center;
+            margin-bottom:40px;
+        }
+
+        .sidebar a{
+            display:block;
+            color:white;
+            text-decoration:none;
+            padding:15px;
+            margin-bottom:15px;
+            border-radius:10px;
+            transition:0.3s;
+        }
+
+        .sidebar a:hover{
+            background:white;
+            color:#667eea;
+        }
+
+        .main{
+            margin-left:250px;
+            width:100%;
+            padding:40px;
+        }
+
+        .form-box{
+            background:white;
+            padding:30px;
+            border-radius:20px;
+            box-shadow:0 5px 20px rgba(0,0,0,0.1);
+            max-width:700px;
+        }
+
+        input, textarea, select{
+            width:100%;
+            padding:12px;
+            margin-top:10px;
+            margin-bottom:20px;
+            border:1px solid #ddd;
+            border-radius:10px;
+        }
+
+        label{
+            font-weight:bold;
+        }
+
+        .btn{
+            padding:12px 20px;
+            border:none;
+            border-radius:10px;
+            cursor:pointer;
+            background:#667eea;
+            color:white;
+            width:100%;
+            font-size:16px;
+        }
+
+        .btn:hover{
+            background:#5563d6;
+        }
+
+        .preview{
+            margin-top:20px;
+            padding:15px;
+            background:#f0f4ff;
+            border-radius:10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="sidebar">
+    <h2>ResuMatch ATS</h2>
+    <a href="/recruiter">🏠 Dashboard</a>
+    <a href="/post_jobs">➕ Post Job</a>
+    <a href="/candidates">🧑‍💻 Candidates</a>
+    <a href="/jobs">💼 Job Listings</a>
+    <a href="/logout">🚪 Logout</a>
+</div>
+
+<div class="main">
+
+    <h1>Post a New Job 🚀</h1>
+
+    <div class="form-box">
+
+        <form method="POST" action="/post_jobs">
+
+            <label>Job Title</label>
+            <input type="text" name="title" required>
+
+            <label>Company Name</label>
+            <input type="text" name="company" required>
+
+            <label>Location</label>
+            <input type="text" name="location" required>
+
+            <label>Job Type</label>
+            <select name="type">
+                <option>Full Time</option>
+                <option>Part Time</option>
+                <option>Internship</option>
+                <option>Remote</option>
+            </select>
+
+            <label>Salary</label>
+            <input type="number" name="salary">
+
+            <label>Required Skills (comma separated)</label>
+            <input type="text" name="skills" placeholder="python, flask, mongodb">
+
+            <label>Description</label>
+            <textarea name="description" rows="5" oninput="livePreview()"></textarea>
+
+            <button type="submit" class="btn">Post Job</button>
+
+        </form>
+
+        <div class="preview">
+            <h3>Live Preview</h3>
+            <p id="previewText">Start typing job description...</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function livePreview(){
+    let text = document.querySelector("textarea").value;
+    document.getElementById("previewText").innerText = text;
+}
+</script>
+
+</body>
+</html>

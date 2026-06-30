@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Upload Resume</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f4f7fc;
+}
+
+.container{
+    width:700px;
+    margin:80px auto;
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+.upload-box{
+    border:3px dashed #667eea;
+    padding:80px;
+    text-align:center;
+    border-radius:20px;
+}
+
+button{
+    padding:15px 30px;
+    background:#667eea;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📄 Upload Resume</h1>
+
+<br>
+
+<div class="upload-box">
+
+<h2>Drag & Drop Resume Here</h2>
+
+<br>
+
+<form method="POST"
+      enctype="multipart/form-data">
+
+<input type="file" name="resume">
+
+<br><br>
+
+<button>
+Upload Resume
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+</html>

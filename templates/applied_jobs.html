@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Applied Jobs | ResuMatch ATS</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
+        }
+
+        body{
+            background:#f4f7fc;
+            padding:40px;
+        }
+
+        .container{
+            background:white;
+            padding:40px;
+            border-radius:20px;
+            box-shadow:0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        h1{
+            color:#667eea;
+            margin-bottom:30px;
+            text-align:center;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        th{
+            background:#667eea;
+            color:white;
+            padding:18px;
+        }
+
+        td{
+            padding:18px;
+            text-align:center;
+            border-bottom:1px solid #ddd;
+        }
+
+        tr:hover{
+            background:#f7f8ff;
+        }
+
+        .status{
+            padding:10px 18px;
+            border-radius:20px;
+            color:white;
+        }
+
+        .applied{
+            background:#2196f3;
+        }
+
+        .review{
+            background:#ff9800;
+        }
+
+        .shortlisted{
+            background:#00c853;
+        }
+
+        .dashboard-btn{
+            display:inline-block;
+            margin-top:30px;
+            background:#667eea;
+            color:white;
+            padding:15px 30px;
+            border-radius:12px;
+            text-decoration:none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📋 My Applications</h1>
+
+<table>
+
+<tr>
+    <th>Company</th>
+    <th>Position</th>
+    <th>Status</th>
+</tr>
+
+{% for job in jobs %}
+
+<tr>
+
+    <td>{{ job.company }}</td>
+
+    <td>{{ job.position }}</td>
+
+    <td>
+
+        {% if job.status == 'Applied' %}
+            <span class="status applied">
+                Applied
+            </span>
+
+        {% elif job.status == 'Under Review' %}
+            <span class="status review">
+                Under Review
+            </span>
+
+        {% elif job.status == 'Shortlisted' %}
+            <span class="status shortlisted">
+                Shortlisted
+            </span>
+
+        {% else %}
+            {{ job.status }}
+        {% endif %}
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<center>
+
+<a href="/candidate"
+   class="dashboard-btn">
+   🏠 Back to Dashboard
+</a>
+
+</center>
+
+</div>
+
+</body>
+</html>
